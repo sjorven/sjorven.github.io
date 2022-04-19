@@ -15,7 +15,7 @@ function preload() {
 
 function setup() {
     createCanvas(700, 700);
-    frameRate(60);
+    frameRate(120);
     imageMode(CENTER);
     for (var i = 0; i < 5; i++) {
         balls.push(new Ball(random(width / 2 - width / 2 * tableSizeMult * 0.87, width / 2 + width / 2 * tableSizeMult * 0.87), random(height / 2 - height / 2 * 299 / 543 * tableSizeMult * 0.75, height / 2 + height / 2 * 299 / 543 * tableSizeMult * 0.75)));
@@ -30,7 +30,6 @@ function setup() {
 
 function draw() {
     background(135, 206, 235);
-    //image(floor, width * 0.5, height * 0.5, width, height);
     image(table, width * 0.5, height * 0.5, width * tableSizeMult, width * 299 / 543 * tableSizeMult);
     checkCollisions();
     for (let i in balls) {
@@ -41,9 +40,10 @@ function draw() {
         queue.update();
         queue.display();
     }
-    for (let i in holes){
-        holes[i].display();
+/*  for (let i in holes){
+            holes[i].display();
     }
+*/
 }
 
 function mouseClicked() {
@@ -68,14 +68,6 @@ function mouseClicked() {
 function checkCollisions() {
     for (let i = 0; i < balls.length; i++) {
         var b1 = balls[i];
-        if (b1.position.x - b1.radius < width / 2 - width / 2 * tableSizeMult * 0.87 || b1.position.x + b1.radius > width / 2 + width / 2 * tableSizeMult * 0.87) {
-            b1.velocity.x *= -1;
-            b1.colliding = true;
-        }
-        if (b1.position.y - b1.radius < height / 2 - height / 2 * 299 / 543 * tableSizeMult * 0.75 || b1.position.y + b1.radius > height / 2 + height / 2 * 299 / 543 * tableSizeMult * 0.75) {
-            b1.velocity.y *= -1;
-            b1.colliding = true;
-        }
         for (let j in holes) {
             let d = dist(holes[j].position.x, holes[j].position.y, b1.position.x, b1.position.y);
             if (d <= holes[j].radius) {
@@ -92,6 +84,14 @@ function checkCollisions() {
                 b1.applyForce(force);
                 b2.applyForce(force.mult(-1));
             }
+        }
+        if (b1.position.x - b1.radius < width / 2 - width / 2 * tableSizeMult * 0.87 || b1.position.x + b1.radius > width / 2 + width / 2 * tableSizeMult * 0.87) {
+            b1.velocity.x *= -1;
+            b1.colliding = true;
+        }
+        if (b1.position.y - b1.radius < height / 2 - height / 2 * 299 / 543 * tableSizeMult * 0.75 || b1.position.y + b1.radius > height / 2 + height / 2 * 299 / 543 * tableSizeMult * 0.75) {
+            b1.velocity.y *= -1;
+            b1.colliding = true;
         }
     }
 }
@@ -127,7 +127,7 @@ class Ball {
     constructor(x, y) {
         this.position = createVector(x, y);
         this.velocity = createVector(0, 0);
-        this.radius = width * 0.015;
+        this.radius = width * 0.01;
         this.color = 255;
         this.captured = false;
         this.colliding = false;
