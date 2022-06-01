@@ -1,0 +1,11 @@
+#header{
+    text-align: center;
+}
+#canvas{
+    width: 1000px;
+    height: 500px;
+}
+body{
+    align-items: center;
+    text-align: center;
+}
