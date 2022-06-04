@@ -4,9 +4,12 @@ body{
     margin: 5%;
     text-align: center;
 }
-
 #images{
-  align-content: stretch;
+    padding-top: 2vh;
+}
+.imgsmall{
+    width: 25vw;
+    height: 40vh;
 }
 
 h1{
