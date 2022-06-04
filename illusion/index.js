@@ -2,7 +2,7 @@ const width = 1000
 const height = 500
 
 const sinusFactor = 0.8
-const horizontalBars = 15
+const bars = 15
 const strokeWidth = 1
 
 const canvas = d3.select("#canvas")
