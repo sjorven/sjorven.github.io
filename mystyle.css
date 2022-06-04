@@ -1,13 +1,12 @@
 body{
     color: white;
     background-color: rgb(135, 206, 235);
-    margin: 100px;
+    margin: 5%;
     text-align: center;
 }
 
 #images{
-    padding-top: 1%;
-    align-content: space-between;
+  align-content: stretch;
 }
 
 h1{
@@ -23,11 +22,6 @@ a {
 }
 a:link{
     text-decoration: none;
-}
-
-.imgsmall{
-    width: 150px;
-    height: 150px;
 }
 
 .button {
