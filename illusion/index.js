@@ -47,7 +47,7 @@ function updateVis() {
         for (var k = 0; k < 3; k++) {
             enteredGroups.append("rect")
                 .attr("x", d => {
-                    return d + width / horizontalBars * j
+                    return  d + (width-width / bars / 2)/ bars * j
                 })
                 .attr("y", (d, i) => height / 3 / rect.length * i + (height/3)*k)
                 .attr("width", width / horizontalBars / 2)
