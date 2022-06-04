@@ -51,7 +51,7 @@ function updateVis() {
                 })
                 .attr("y", (d, i) => height / 3 / rect.length * i + (height/3)*k)
                 .attr("width", width / horizontalBars / 2)
-                .attr("height", height / 3 / rect.length)
+                .attr("height", height / 3 / rect.length - strokeWidth)
                 .attr("fill", "black")
         }
     }

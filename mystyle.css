@@ -5,6 +5,19 @@ body{
     text-align: center;
 }
 
+#images{
+    padding-top: 1%;
+    align-content: space-between;
+}
+
+h1{
+    font-size: 300%;
+}
+
+p{
+    font-size: 150%;
+}
+
 a {
     color: white;    
 }
@@ -18,7 +31,7 @@ a:link{
 }
 
 .button {
-    
+    width: 20%;
     color: white;
     font-size: 14px;
     line-height: 14px;
