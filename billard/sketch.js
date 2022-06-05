@@ -40,6 +40,7 @@ function draw() {
         queue.update();
         queue.display();
     }
+
 /*  for (let i in holes){
             holes[i].display();
     }
@@ -103,21 +104,21 @@ class Queue {
     }
 
     update() {
+        
         this.mouse.set(mouseX, mouseY);
         this.mouse.sub(this.pos);
         this.mouse.normalize();
-        this.mouse.mult(250);
+        this.mouse.mult(180);
+    
     }
 
     display() {
-        push();
-        translate(this.pos.x, this.pos.y);
-        var offset = this.mouse.copy();
-        offset.normalize();
-        offset.mult(50);
-        translate(offset.x, offset.y);
-        line(0,0,this.mouse.x,this.mouse.y)
-        pop();
+       push()
+       translate(this.pos.x,this.pos.y)
+       translate(this.mouse.x, this.mouse.y)
+       rotate(this.mouse.heading()-PI/2)
+       image(queuePic, 0, 0, 100, 300)
+       pop()
     }
 }
 
