@@ -6,6 +6,7 @@ var table;
 var floor;
 var tableSizeMult = 0.7;
 var queuePic;
+var colors = ['blue','red','yellow','pink','purple']
 
 function preload() {
     table = loadImage('img.jpg');
@@ -14,12 +15,15 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(700, 700);
-    frameRate(120);
+    createCanvas(800, 800);
+    frameRate(60);
     imageMode(CENTER);
-    for (var i = 0; i < 5; i++) {
-        balls.push(new Ball(random(width / 2 - width / 2 * tableSizeMult * 0.87, width / 2 + width / 2 * tableSizeMult * 0.87), random(height / 2 - height / 2 * 299 / 543 * tableSizeMult * 0.75, height / 2 + height / 2 * 299 / 543 * tableSizeMult * 0.75)));
+    for (var i = 0; i < 12; i++) {
+       // balls.push(new Ball(random(width / 2 - width / 2 * tableSizeMult * 0.87, width / 2 + width / 2 * tableSizeMult * 0.87), random(height / 2 - height / 2 * 299 / 543 * tableSizeMult * 0.75, height / 2 + height / 2 * 299 / 543 * tableSizeMult * 0.75)));
+        balls.push(new Ball((i*width/30)+width/3,height/2,colors[i%colors.length]))
     }
+    balls.push(new Ball(width/2, height/2-height*0.05, 'white'))
+    balls.push(new Ball(width/2, height/2+height*0.05, 'black'))
     holes.push(new Hole(width / 2, height / 2 - height / 2 * 299 / 543 * tableSizeMult * 0.85));
     holes.push(new Hole(width / 2, height / 2 + height / 2 * 299 / 543 * tableSizeMult * 0.85));
     holes.push(new Hole(width / 2 - width / 2 * tableSizeMult * 0.9, height / 2 - height / 2 * 299 / 543 * tableSizeMult * 0.82));
@@ -54,7 +58,6 @@ function mouseClicked() {
         force.sub(mouse);
         force.mult(0.1);
         selected.applyForce(force);
-        selected.color = 255;
         selected = null;
     } else {
         for (let i in balls) {
@@ -125,11 +128,11 @@ class Queue {
 
 class Ball {
 
-    constructor(x, y) {
+    constructor(x, y, color) {
         this.position = createVector(x, y);
         this.velocity = createVector(0, 0);
         this.radius = width * 0.01;
-        this.color = 255;
+        this.color = color;
         this.captured = false;
         this.colliding = false;
     }
@@ -149,7 +152,7 @@ class Ball {
 
     display() {
         fill(this.color);
-        stroke(255);
+        noStroke()
         ellipse(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
     }
 }
