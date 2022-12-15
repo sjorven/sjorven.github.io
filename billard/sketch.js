@@ -19,7 +19,6 @@ function setup() {
     frameRate(60);
     imageMode(CENTER);
     for (var i = 0; i < 12; i++) {
-       // balls.push(new Ball(random(width / 2 - width / 2 * tableSizeMult * 0.87, width / 2 + width / 2 * tableSizeMult * 0.87), random(height / 2 - height / 2 * 299 / 543 * tableSizeMult * 0.75, height / 2 + height / 2 * 299 / 543 * tableSizeMult * 0.75)));
         balls.push(new Ball((i*width/30)+width/3,height/2,colors[i%colors.length]))
     }
     balls.push(new Ball(width/2, height/2-height*0.05, 'white'))
@@ -45,11 +44,36 @@ function draw() {
         queue.display();
     }
 
-/*  for (let i in holes){
-            holes[i].display();
-    }
-*/
+
 }
+
+function touchStart() {
+    if (selected == null) {
+        for (let i in balls) {
+            if (dist(touches[0].x, touches[0].y, balls[i].position.x, balls[i].position.y) <= balls[i].radius
+                    && balls[i].color == "white") {
+                selected = balls[i];
+                queue = new Queue(selected.position);
+            }
+        }
+    }
+}
+
+function touchEnd() {
+    if (selected != null) {
+        var touch = createVector(touches[0].x, touches[0].y);
+        var force = selected.position.copy();
+        force.sub(touch);
+        force.mult(0.1);
+        // force.mag???
+        if(force.mag >= 1){
+            force.mag = 1;
+        }
+        selected.applyForce(force);
+        selected = null;
+    }
+}
+
 
 function mouseClicked() {
     if (selected != null) {
@@ -57,11 +81,16 @@ function mouseClicked() {
         var force = selected.position.copy();
         force.sub(mouse);
         force.mult(0.1);
+        // force.mag???
+        if(force.mag >= 1){
+            force.mag = 1;
+        }
         selected.applyForce(force);
         selected = null;
     } else {
         for (let i in balls) {
-            if (dist(mouseX, mouseY, balls[i].position.x, balls[i].position.y) <= balls[i].radius) {
+            if (dist(mouseX, mouseY, balls[i].position.x, balls[i].position.y) <= balls[i].radius
+                    && balls[i].color == "white") {
                 selected = balls[i];
                 queue = new Queue(selected.position);
             }
@@ -75,8 +104,12 @@ function checkCollisions() {
         for (let j in holes) {
             let d = dist(holes[j].position.x, holes[j].position.y, b1.position.x, b1.position.y);
             if (d <= holes[j].radius) {
+                if(b1.color == "white"){
+                    balls.push(new Ball(width/2, height/2-height*0.05, 'white'))
+                }
                 b1.captured = true;
                 balls.splice(i, 1);
+
             }
         }
         for (let j in balls) {
