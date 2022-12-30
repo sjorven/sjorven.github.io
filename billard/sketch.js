@@ -47,10 +47,11 @@ function draw() {
 
 }
 
-function touchStart() {
+function touchStart(event) {
+    var touch = event.touches[0];
     if (selected == null) {
         for (let i in balls) {
-            if (dist(touches[0].x, touches[0].y, balls[i].position.x, balls[i].position.y) <= balls[i].radius
+            if (dist(touch.x, touch[0].y, balls[i].position.x, balls[i].position.y) <= balls[i].radius
                     && balls[i].color == "white") {
                 selected = balls[i];
                 queue = new Queue(selected.position);
@@ -59,11 +60,12 @@ function touchStart() {
     }
 }
 
-function touchEnd() {
+function touchEnd(event) {
+    var touch = event.touches[0];
     if (selected != null) {
-        var touch = createVector(touches[0].x, touches[0].y);
+        var touchVec = createVector(touch.x, touch.y);
         var force = selected.position.copy();
-        force.sub(touch);
+        force.sub(touchVec);
         force.mult(0.1);
         // force.mag???
         if(force.mag >= 1){
